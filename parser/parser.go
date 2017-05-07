@@ -11,7 +11,14 @@ import (
 	"strings"
 )
 
-func Parse() (err error) {
+type game struct {
+	TotalKills int            `json:"total_kills"`
+	Players    map[int]string `json:"players"`
+	Kills      map[string]int `json:"kills"`
+}
+
+// Parse the file and create a json with the correct rules
+func Parse(fileStr string) (err error) {
 	killRegEx, err := regexp.Compile(`Kill:\s(.*?):`)
 	if err != nil {
 		return
@@ -25,11 +32,6 @@ func Parse() (err error) {
 	gameStartRegEx, err := regexp.Compile(`InitGame:`)
 	if err != nil {
 		return
-	}
-
-	fileStr := c.Args().Get(0)
-	if fileStr == "" {
-		fileStr = "games.log"
 	}
 
 	file, err := os.Open(fileStr)

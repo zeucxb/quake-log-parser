@@ -8,12 +8,6 @@ import (
 	cli "gopkg.in/urfave/cli.v2"
 )
 
-type game struct {
-	TotalKills int            `json:"total_kills"`
-	Players    map[int]string `json:"players"`
-	Kills      map[string]int `json:"kills"`
-}
-
 func main() {
 	app := &cli.App{
 		Name: "quake-log-parser",
@@ -33,7 +27,12 @@ func main() {
 				Usage:       "run the parser",
 				Description: "This run a parser",
 				Action: func(c *cli.Context) (err error) {
-					err = parser.Parse()
+					fileStr := c.Args().Get(0)
+					if fileStr == "" {
+						fileStr = "games.log"
+					}
+
+					err = parser.Parse(fileStr)
 					return
 				},
 			},
