@@ -1,8 +1,8 @@
-hash: 9631d78320b8544d84acf7b1040e0cee1513bd47068a0db3d4e0f3e800a136f3
-updated: 2017-05-07T00:36:24.993860442-03:00
+hash: 225e252171f5840f73da61df2587d8c2a16b6944b02479966e91902d0fdf66bc
+updated: 2017-05-07T01:51:16.304393406-03:00
 imports:
 - name: github.com/franela/goblin
-  version: 74c9fe110d4bfd04c222a089a309e0a97e258534
+  version: 2fa789fd0c6b7975acbfb89a04830b4081a7b0e9
 - name: gopkg.in/urfave/cli.v2
   version: 0bdeddeeb0f650497d603c4ad7b20cfe685682f6
 testImports: []
