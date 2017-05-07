@@ -2,3 +2,5 @@ package: quake-log-parser
 import:
 - package: gopkg.in/urfave/cli.v2
   version: ~1.19.1
+- package: github.com/franela/goblin
+  version: ~0.0.1
