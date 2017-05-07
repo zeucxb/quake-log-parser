@@ -3,13 +3,16 @@ package parser
 import (
 	"bufio"
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"os"
 	"regexp"
-	"strconv"
-	"strings"
 )
+
+var killRegEx, userRegEx, gameStartRegEx *regexp.Regexp
+var games = make(map[string]*game)
+var count = 1
+var keyPref = "game_"
+var key string
 
 type game struct {
 	TotalKills int            `json:"total_kills"`
@@ -17,93 +20,51 @@ type game struct {
 	Kills      map[string]int `json:"kills"`
 }
 
-// Parse the file and create a json with the correct rules
-func Parse(fileStr string) (err error) {
-	killRegEx, err := regexp.Compile(`Kill:\s(.*?):`)
+func initRegEx() (err error) {
+	killRegEx, err = regexp.Compile(`Kill:\s(.*?):`)
 	if err != nil {
 		return
 	}
 
-	userRegEx, err := regexp.Compile(`ClientUserinfoChanged:\s(.)\sn\\(.*)\\t\\`)
+	userRegEx, err = regexp.Compile(`ClientUserinfoChanged:\s(.)\sn\\(.*)\\t\\`)
 	if err != nil {
 		return
 	}
 
-	gameStartRegEx, err := regexp.Compile(`InitGame:`)
-	if err != nil {
-		return
-	}
+	gameStartRegEx, err = regexp.Compile(`InitGame:`)
+	return
+}
 
-	file, err := os.Open(fileStr)
-	if err != nil {
-		return
-	}
-
-	games := make(map[string]*game)
-	count := 1
-	keyPref := "game_"
-
-	var key string
-
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		if match := killRegEx.FindStringSubmatch(scanner.Text()); len(match) == 2 {
-			killInfo := strings.Split(match[1], " ")
-
-			killerKey, err := strconv.Atoi(killInfo[0])
-			if err != nil {
-				panic(err)
-			}
-
-			killedKey, err := strconv.Atoi(killInfo[1])
-			if err != nil {
-				panic(err)
-			}
-
-			if killInfo[0] == "1022" {
-				games[key].Kills[games[key].Players[killedKey-1]]--
-			} else {
-				games[key].Kills[games[key].Players[killerKey-1]]++
-			}
-
-			games[key].TotalKills++
-
-			continue
-		}
-
-		if match := userRegEx.FindStringSubmatch(scanner.Text()); len(match) == 3 {
-			playerKey, err := strconv.Atoi(match[1])
-			if err != nil {
-				panic(err)
-			}
-
-			games[key].Players[playerKey-1] = match[2]
-
-			continue
-		}
-
-		if match := gameStartRegEx.MatchString(scanner.Text()); match {
-			key = fmt.Sprintf("%s%v", keyPref, count)
-
-			if _, ok := games[key]; !ok {
-				games[key] = &game{
-					Players: make(map[int]string),
-					Kills:   make(map[string]int),
-				}
-			}
-
-			count++
-
-			continue
-		}
-	}
-	if err := scanner.Err(); err != nil {
-		fmt.Fprintln(os.Stderr, "reading standard input:", err)
-	}
-
+func writeFile(games map[string]*game) (err error) {
 	json, err := json.Marshal(games)
 
 	err = ioutil.WriteFile("quake_data.json", json, 0644)
+
+	return
+}
+
+// Parse the file and create a json with the correct rules
+func Parse(fileStr string) (err error) {
+	if err := initRegEx(); err != nil {
+		return err
+	}
+
+	file, err := os.Open(fileStr)
+	defer file.Close()
+	if err != nil {
+		return
+	}
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		checkAndParse(scanner.Text())
+	}
+
+	if err := scanner.Err(); err != nil {
+		return err
+	}
+
+	err = writeFile(games)
 
 	return
 }
