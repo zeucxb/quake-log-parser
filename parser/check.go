@@ -41,7 +41,22 @@ func checkAndParseUser(text string) (check bool, err error) {
 			return false, err
 		}
 
-		games[key].Players[playerKey-1] = match[2]
+		if _, ok := games[key].Players[playerKey-1]; !ok {
+			newPlayer := match[2]
+
+			games[key].Players[playerKey-1] = newPlayer
+			games[key].Kills[newPlayer] = 0
+		} else {
+			currentPlayer := games[key].Players[playerKey-1]
+			currentKills := games[key].Kills[currentPlayer]
+
+			newPlayer := match[2]
+
+			delete(games[key].Kills, currentPlayer)
+
+			games[key].Players[playerKey-1] = newPlayer
+			games[key].Kills[newPlayer] = currentKills
+		}
 
 		return true, nil
 	}

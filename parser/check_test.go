@@ -157,7 +157,7 @@ func Test(t *testing.T) {
 			game := games["game_1"]
 
 			g.Assert(game.TotalKills).Equal(1)
-			g.Assert(game.Kills).Equal(map[string]int{"Isgalamido": 1})
+			g.Assert(game.Kills).Equal(map[string]int{"Isgalamido": 1, "Dono da Bola": 0})
 		})
 	})
 }
