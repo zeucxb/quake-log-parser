@@ -23,4 +23,4 @@ _testmain.go
 *.test
 *.prof
 
-./quake_data.json
+quake_data.json
