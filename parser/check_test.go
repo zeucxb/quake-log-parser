@@ -13,7 +13,7 @@ func reset() {
 	games = make(map[string]*game)
 }
 
-func Test(t *testing.T) {
+func TestCheck(t *testing.T) {
 	g := Goblin(t)
 
 	initRegEx()
@@ -34,7 +34,7 @@ func Test(t *testing.T) {
 		g.It("Should return as checked and has no errors", func() {
 			check, err := checkAndParseGameInit(gameInitText)
 
-			g.Assert(check).IsTrue()
+			g.Assert(check).IsFalse()
 			g.Assert(err).Equal(nil)
 		})
 
