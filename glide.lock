@@ -1,8 +1,10 @@
-hash: 225e252171f5840f73da61df2587d8c2a16b6944b02479966e91902d0fdf66bc
-updated: 2017-05-07T01:51:16.304393406-03:00
+hash: 1d333a306bd90aa128b62cff4ec55ac571cf948349fd86cc287cc36d1020b459
+updated: 2017-05-10T01:21:15.610070221-03:00
 imports:
 - name: github.com/franela/goblin
   version: 2fa789fd0c6b7975acbfb89a04830b4081a7b0e9
+- name: github.com/julienschmidt/httprouter
+  version: 8c199fb6259ffc1af525cc3ad52ee60ba8359669
 - name: gopkg.in/urfave/cli.v2
   version: 0bdeddeeb0f650497d603c4ad7b20cfe685682f6
 testImports: []
