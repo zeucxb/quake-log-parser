@@ -13,8 +13,8 @@ func main() {
 		Name: "quake-log-parser",
 		Commands: []cli.Command{
 			{
-				Name:        "run",
-				Aliases:     []string{"r"},
+				Name:        "serve",
+				Aliases:     []string{"s"},
 				Usage:       "run the server",
 				Description: "This start the server application",
 				Action: func(c *cli.Context) (err error) {
