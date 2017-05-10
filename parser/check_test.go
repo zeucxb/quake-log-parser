@@ -34,7 +34,7 @@ func TestCheck(t *testing.T) {
 		g.It("Should return as checked and has no errors", func() {
 			check, err := checkAndParseGameInit(gameInitText)
 
-			g.Assert(check).IsFalse()
+			g.Assert(check).IsTrue()
 			g.Assert(err).Equal(nil)
 		})
 
