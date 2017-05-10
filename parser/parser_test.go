@@ -31,8 +31,13 @@ func createTempLog() {
 	}
 }
 
-func deleteTempLog() {
+func deleteTempLogAndGeneratedFile() {
 	err := os.Remove(logFilePath)
+	if err != nil {
+		panic(err)
+	}
+
+	err = os.Remove("quake_data.json")
 	if err != nil {
 		panic(err)
 	}
@@ -47,7 +52,7 @@ func TestParser(t *testing.T) {
 		})
 
 		g.AfterEach(func() {
-			deleteTempLog()
+			deleteTempLogAndGeneratedFile()
 		})
 
 		g.It("Should receive a valid file and return no errors", func() {
