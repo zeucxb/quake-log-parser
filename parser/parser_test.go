@@ -43,7 +43,7 @@ func deleteTempLogAndGeneratedFile() {
 	}
 }
 
-func TestParser(t *testing.T) {
+func TestParserParse(t *testing.T) {
 	g := Goblin(t)
 
 	g.Describe("PARSE", func() {
@@ -76,6 +76,18 @@ func TestParser(t *testing.T) {
 			Parse(logFilePath)
 
 			_, err := os.Stat(logFilePath)
+
+			g.Assert(err).Equal(nil)
+		})
+	})
+}
+
+func TestParserInitRegEx(t *testing.T) {
+	g := Goblin(t)
+
+	g.Describe("INITREGEX", func() {
+		g.It("Should init regex and return no errors", func() {
+			err := initRegEx()
 
 			g.Assert(err).Equal(nil)
 		})
