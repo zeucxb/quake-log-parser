@@ -1,0 +1,55 @@
+{
+	"variables": [],
+	"info": {
+		"name": "quake-log-parser",
+		"_postman_id": "6e9fc61b-9914-9ee0-f5b0-3395df7c6f60",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/",
+			"request": {
+				"url": "localhost:3000",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/report",
+			"request": {
+				"url": "localhost:3000/report",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/report/game_1",
+			"request": {
+				"url": "localhost:3000/report/game_1",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "/report/1",
+			"request": {
+				"url": "localhost:3000/report/1",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
