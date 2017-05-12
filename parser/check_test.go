@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"quake-log-parser/helper"
 	"testing"
 
 	. "github.com/franela/goblin"
@@ -21,7 +22,7 @@ func init() {
 func TestCheckGameInitParse(t *testing.T) {
 	g := Goblin(t)
 
-	g.Describe("GAME INIT parse", func() {
+	g.Describe("checkAndParseGameInit", func() {
 		g.AfterEach(func() {
 			reset()
 		})
@@ -63,7 +64,7 @@ func TestCheckGameInitParse(t *testing.T) {
 func TestCheckUserParse(t *testing.T) {
 	g := Goblin(t)
 
-	g.Describe("USER parse", func() {
+	g.Describe("checkAndParseUser", func() {
 		g.BeforeEach(func() {
 			checkAndParseGameInit(gameInitText)
 		})
@@ -72,7 +73,7 @@ func TestCheckUserParse(t *testing.T) {
 			count = 1
 			key = ""
 
-			games = make(map[string]*game)
+			games = make(map[string]*helper.Game)
 		})
 
 		g.It("Should return as checked and has no errors", func() {
@@ -116,7 +117,7 @@ func TestCheckUserParse(t *testing.T) {
 func TestCheckKillParse(t *testing.T) {
 	g := Goblin(t)
 
-	g.Describe("KILL parse", func() {
+	g.Describe("checkAndParseKill", func() {
 		g.BeforeEach(func() {
 			checkAndParseGameInit(gameInitText)
 		})
@@ -125,7 +126,7 @@ func TestCheckKillParse(t *testing.T) {
 			count = 1
 			key = ""
 
-			games = make(map[string]*game)
+			games = make(map[string]*helper.Game)
 		})
 
 		g.It("Should return as checked and has no errors", func() {
@@ -169,5 +170,5 @@ func reset() {
 	count = 1
 	key = ""
 
-	games = make(map[string]*game)
+	games = make(map[string]*helper.Game)
 }

@@ -14,7 +14,7 @@ var jsonFilePath = "./quake_data_temp.json"
 func TestHelperCheckError(t *testing.T) {
 	g := Goblin(t)
 
-	g.Describe("CHECKERROR", func() {
+	g.Describe("CheckError", func() {
 		g.It("Should return TRUE", func() {
 			ok := CheckError(fmt.Errorf("Some ERROR!"))
 
@@ -32,7 +32,7 @@ func TestHelperCheckError(t *testing.T) {
 func TestHelperGetGames(t *testing.T) {
 	g := Goblin(t)
 
-	g.Describe("GETGAMES", func() {
+	g.Describe("GetGames", func() {
 		g.Before(func() {
 			createQuakeTempData()
 		})

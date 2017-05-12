@@ -46,7 +46,7 @@ func deleteTempLogAndGeneratedFile() {
 func TestParserParse(t *testing.T) {
 	g := Goblin(t)
 
-	g.Describe("PARSE", func() {
+	g.Describe("Parse", func() {
 		g.BeforeEach(func() {
 			createTempLog()
 		})
@@ -85,7 +85,7 @@ func TestParserParse(t *testing.T) {
 func TestParserInitRegEx(t *testing.T) {
 	g := Goblin(t)
 
-	g.Describe("INITREGEX", func() {
+	g.Describe("initRegEx", func() {
 		g.It("Should init regex and return no errors", func() {
 			err := initRegEx()
 
