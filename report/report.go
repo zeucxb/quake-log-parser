@@ -13,7 +13,7 @@ import (
 var jsonFilePath = "./quake_data.json"
 
 func reportDefaultHandle(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	message := "API ONLINE\n\nAcesse /report para acessar o relatório completo dos logs\nAcesse /report/:gameName ou /report/:gameNumber para acessar o relatório do log de um game"
+	message := "API ONLINE\n\nAcesse /report para obter o relatório completo dos logs\nAcesse /report/:gameName ou /report/:gameNumber para obter o relatório do log de um game"
 
 	fmt.Fprintf(w, message)
 }
