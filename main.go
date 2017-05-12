@@ -1,9 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"os"
 	"quake-log-parser/parser"
+	"quake-log-parser/report"
 
 	cli "gopkg.in/urfave/cli.v2"
 )
@@ -18,7 +18,12 @@ func main() {
 				Usage:       "run the server",
 				Description: "This start the server application",
 				Action: func(c *cli.Context) (err error) {
-					fmt.Printf("TODO")
+					portStr := c.Args().Get(0)
+					if portStr == "" {
+						portStr = "3000"
+					}
+
+					err = report.Serve(portStr)
 					return
 				},
 			}, {
