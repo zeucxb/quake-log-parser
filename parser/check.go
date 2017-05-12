@@ -2,6 +2,7 @@ package parser
 
 import (
 	"fmt"
+	"quake-log-parser/helper"
 	"strconv"
 	"strings"
 )
@@ -69,7 +70,7 @@ func checkAndParseGameInit(text string) (check bool, err error) {
 		key = fmt.Sprintf("%s%v", keyPref, count)
 
 		if _, ok := games[key]; !ok {
-			games[key] = &game{
+			games[key] = &helper.Game{
 				Players: make(map[int]string),
 				Kills:   make(map[string]int),
 			}
